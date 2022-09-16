@@ -7,7 +7,6 @@ int main() {
     int a;
 
     cin>>a;
-    stocazzo<
     Cell iPhone11;
     iPhone11.print();
     Cell iPhone12("Apple",100,100,1000);
