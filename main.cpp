@@ -1,7 +1,9 @@
 #include <iostream>
+#include "Cell.h"
 using namespace std;
 
 int main() {
-    cout << "Hello World!";
-    return 0;
+    Cell iPhone11;
+    iPhone11.print();
+
 }

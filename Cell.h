@@ -1,5 +1,5 @@
-#ifndef__Cell.h__
-#define __Cell.h__
+#ifndef __CELL_H__
+#define __CELL_H__
 #include <iostream>
 using namespace std;
 class Cell{
@@ -9,23 +9,33 @@ class Cell{
         string Serial_Number;
         int minchiamate;
         int nsms;
-        int saldo;
-        void setNsms();
-        void setMchia();
+        void setNsms(int n);
+        void setMchia(int m);
+
     public:
         Cell();
         Cell(string P, int Batteria, int m, int n);
+
         string generateSerialN();
+
         int getBatteria();
-        void setBatteria();
+        void setBatteria(int b);
         string getProduttore();
-        void setProduttore();
+        void setProduttore(string p);
         string getSerialN();
         int getNsms();
         int getMchia();
-        
-        void Print();
+
+        void chiamata(int durata);
+        void sendsms();
+
+        void print();
+
+        void ricarica(bool type);
 };
 
 
 #endif
+
+
+
