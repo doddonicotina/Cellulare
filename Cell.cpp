@@ -2,6 +2,7 @@
 
 string Cell:: generateSerialN()
 {
+    srand(time(NULL));
     char valid[] = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
     char rand_array[16];
     string temp;
@@ -21,14 +22,42 @@ Cell::Cell():Produttore("NONE"),Batteria(0),minchiamate(0),nsms(0)
 
 Cell::Cell(string P, int B, int m, int n):Produttore(P),Batteria(B),minchiamate(m),nsms(n)
 {
+    Serial_Number=generateSerialN();
+
     cout<<"Parameter constructor \n";
 }
 
 void Cell:: chiamata(int durata){
-
-    while (getMchia() < 0)
+    if (minchiamate>0 && Batteria>0)
     {
-        cout << "Saldo insufficiente.. Vuoi ricaricare? y/n";
+        int temp;
+
+            if (durata / 2 == 0)
+            {
+                temp = getBatteria() - durata / 2;
+            }
+            else
+            {
+                durata++;
+                temp = getBatteria() - durata / 2;
+            }
+            if (temp >= 1)
+            {
+                Batteria = temp;
+            }
+            else
+            {
+                Batteria = 0;
+                cout << " Cellulare scarico \n";
+            }
+            
+            setMchia(getMchia()-durata);
+    }else if (minchiamate>0)
+    {
+        cout<<"Batteria scarica \n";
+    }
+    else{
+         cout << "Saldo insufficiente.. Vuoi ricaricare? y/n \n";
         char deci;
         cin >> deci;
         if (deci == 'y')
@@ -36,43 +65,34 @@ void Cell:: chiamata(int durata){
             ricarica(0);
         }
     }
-    int temp;
-
-    if (durata / 2 == 0)
-    {
-        temp = getBatteria() - durata / 2;
-    }
-    else
-    {
-        durata++;
-        temp = getBatteria() - durata / 2;
-    }
-    if (temp >= 1)
-    {
-        Batteria = temp;
-    }
-    else
-    {
-        Batteria = 0;
-        cout << " Cellulare scarico \n";
-    }
-     
+    
+    
         
 }
 
 void Cell::sendsms()
 {
-    while (nsms <= 0)
+
+    if (nsms>0 && Batteria>0)
     {
-        cout << "Saldo insufficiente.. Vuoi ricaricare? y/n";
+     nsms--;
+    setBatteria(getBatteria()-1);   
+    }
+    else if (nsms>0)
+    {
+        cout<<"Batteria scarica \n";
+    }
+    else
+    {
+      cout << "Saldo insufficiente.. Vuoi ricaricare? y/n \n";
         char deci;
         cin >> deci;
         if (deci == 'y')
         {
             ricarica(1);
-        }
+        } 
     }
-    nsms--;
+    
 }
 
 void Cell::ricarica(bool type)
